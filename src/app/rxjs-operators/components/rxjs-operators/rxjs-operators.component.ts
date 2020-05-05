@@ -10,7 +10,8 @@ import { take } from 'rxjs/operators';
 export class RxjsOperatorsComponent implements OnInit, OnDestroy {
   emitter$ = new BehaviorSubject(1);
   currentValue: number;
-  subscription$: Subscription;
+  firstSubscription$: Subscription;
+  secondSubscription$: Subscription;
   constructor() {
     setInterval(() => {
       this.emitter$.next(this.emitter$.value + 1);
@@ -18,13 +19,17 @@ export class RxjsOperatorsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription$ = this.emitter$.subscribe((result) => {
-      this.currentValue = result;
-      console.log(result);
+    this.firstSubscription$ = this.emitter$.subscribe((increasedNumber) => {
+      this.currentValue = increasedNumber;
+      console.log(increasedNumber);
+    });
+
+    this.emitter$.subscribe((increased) => {
+      console.log(`Exponential ${increased ** 2}`);
     });
   }
 
   ngOnDestroy() {
-    this.subscription$.unsubscribe();
+    this.firstSubscription$.unsubscribe();
   }
 }
