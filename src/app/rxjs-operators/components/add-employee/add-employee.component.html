@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <div class="employee-form">
+    <form [formGroup]="form" (ngSubmit)="form.valid && submitForm()">
+      <div class="fg">
+        <label for="">Email:</label>
+        <input
+          type="text"
+          formControlName="email"
+          placeholder="Enter the email"
+        />
+        <div class="errors" *ngIf="getControl('email').touched">
+          <span *ngIf="getControl('email').hasError('required')"
+            >* This field is required.</span
+          >
+          <span *ngIf="getControl('email').hasError('email')"
+            >* This field must be a valid email.</span
+          >
+        </div>
+      </div>
+      <div class="fg">
+        <label for="">Password:</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Enter the password"
+        />
+        <div class="errors" *ngIf="getControl('password').touched">
+          <span *ngIf="getControl('password').hasError('required')"
+            >* This field is required.</span
+          >
+        </div>
+      </div>
+      <div class="fg">
+        <button>Log in</button>
+      </div>
+    </form>
+  </div>
+  <div class="employee-list"></div>
+</div>
